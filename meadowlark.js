@@ -7,9 +7,12 @@ var handlebars = require('express3-handlebars')
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
+//set port
 app.set('port', process.env.PORT || 3000);
 
 
+
+//set pages
 app.get('/', function(req, res){
   res.type('text/plain');
   res.send("Meadowlark Travel");
@@ -33,7 +36,9 @@ app.use(function(err, req, res, next){
  res.status(500);
  res.send('500 - Server Error');
 });
-app.listen(app.get('port'), function(){
- console.log( 'Express started on http://localhost:' +
- app.get('port') + '; press Ctrl-C to terminate.' );
+
+//start server
+app.listen(app.get('port'), function(){ 
+  console.log( 'Express started on http://localhost:' +
+  app.get('port') + '; press Ctrl-C to terminate.' );
 });
