@@ -3,7 +3,6 @@ var express = require('express');
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
-node 
 //custom 404 page
 
 app.use(function(req, res) {
@@ -12,7 +11,8 @@ app.use(function(req, res) {
   res.send('404 - Not Found');
 });
 
-app.use(function(req,res){
+app.use(function(req,res,res,next){
+  console.error(err.stack);
   res.type('text/plain');
   res.status(500);
   res.send("500 - Server Error");
