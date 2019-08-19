@@ -17,7 +17,7 @@ var fortunes = [
 var express = require('express');
 var app = express();
 
-// set up handlebars view engine
+// set up handlebars view engines
 var handlebars = require('express3-handlebars').create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine); 
 app.set('view engine', 'handlebars'); 
