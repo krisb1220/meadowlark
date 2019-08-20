@@ -1,3 +1,7 @@
+@echo off 
+
+set /p msg ="Enter your commit message: "
+
 git add .
-git commit -m "$(date +%D %T)"
+git commit -m msg
 git push
