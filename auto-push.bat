@@ -1,5 +1,6 @@
 git add .
 git commit -m "Auto Commit On %date%"
-git push
-
 pause
+clear
+echo "Confirm push & commit...."
+git push
