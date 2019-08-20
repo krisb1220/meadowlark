@@ -11,10 +11,10 @@ var handlebars = require('express3-handlebars').create({ defaultLayout:'main' })
 app.engine('handlebars', handlebars.engine); 
 app.set('view engine', 'handlebars'); 
 
-//set port to default OR 3000
+//set port 
 app.set('port', process.env.PORT || 3000);
 
-//set static directory as /public 
+//set static directory  
 app.use(express.static(__dirname + '/public'));
 
 //set pages
@@ -25,7 +25,6 @@ app.get('/', (req, res)=>{
 app.get('/about', (req,res)=>{
   res.render('about', {  fortune:fortune.getFortune()});
 });
-\
 
  // 404 catch-all handler (middleware)
  app.use(function(req, res, next){
