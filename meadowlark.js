@@ -25,6 +25,7 @@ app.get('/', (req, res)=>{
 app.get('/about', (req,res)=>{
   res.render('about', {  fortune:fortune.getFortune()});
 });
+\
 
  // 404 catch-all handler (middleware)
  app.use(function(req, res, next){
