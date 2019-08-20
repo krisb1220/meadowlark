@@ -1,19 +1,8 @@
 //v8.19.19
 
-var fortunes = [
-  "With integrity and consistency -- your credits are piling up.",
-  "Reach out your hand today to support others who need you.",
-  "It is not the outside riches bit the inside ones that produce happiness.",
-  "How dark is dark?, How wise is wise?",
-  "We can admire all we see, but we can only pick one.",
-  "The man who has no imagination has no wings.",
-  "To courageously shoulder the responsibility of one's mistake is character.",
-  "We can't help everyone. But everyone can help someone.",
-  "You discover treasures where others see nothing unusual.",
-  "Make all you can, save all you can, give all you can.",
-  "Understanding the nature of change, changes the nature.",
-  "You will be unusually successful in business."
-]
+
+//require modules
+var fortune = require('./lib/fortune.js');
 var express = require('express');
 var app = express();
 
@@ -37,12 +26,7 @@ app.get('/', (req, res)=>{
 //  });
 
 app.get('/about', (req,res)=>{
-
-  let randomFortune = ()=>{
-    return fortunes[Math.floor(Math.random() * fortunes.length)];
-  }
-
-  res.render('about', {  fortune:randomFortune });
+  res.render('about', {  fortune:fortune.getFortune()});
 });
 
  // 404 catch-all handler (middleware)
