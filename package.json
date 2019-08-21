@@ -1,19 +1,31 @@
 {
-  "name": "meadowlark",
+  "name": "meadowlark-site",
   "version": "1.0.0",
-  "description": "",
+  "description": "THIS IS A TEST PROJECT FOR NODE AS WELL AS MY FIRST TIME USING GIT.",
   "main": "meadowlark.js",
   "scripts": {
     "test": "test"
   },
-  "author": "",
+  "author": "Energy Marketing Company",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
     "express3-handlebars": "^0.5.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.0"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krisb1220/meadowlark.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krisb1220/meadowlark/issues"
+  },
+  "homepage": "https://github.com/krisb1220/meadowlark#readme"
 }
