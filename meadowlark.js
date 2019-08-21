@@ -1,6 +1,4 @@
 //v8.19.19
-
-
 //require modules
 var fortune = require('./lib/fortune.js');
 var express = require('express');
