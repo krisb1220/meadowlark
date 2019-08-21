@@ -1,11 +1,13 @@
-//v8.19.19
 //require modules
 var fortune = require('./lib/fortune.js');
 var express = require('express');
 var app = express();
 
-// set up handlebars view engines
+//Require handlebars
+//Set defaultLayout to main.handlebars (file extension omitted in HB)
 var handlebars = require('express-handlebars').create({ defaultLayout:'main' });
+
+// set up handlebars view engines
 app.engine('handlebars', handlebars.engine); 
 app.set('view engine', 'handlebars'); 
 
@@ -47,7 +49,7 @@ app.get('/about', (req,res)=>{
  
 
 //start server
-app.listen(2999, function(){
+app.listen(app.get('port'), function(){
   console.log( 'Express started on http://localhost:' +
   app.get('port') + '; press Ctrl-C to terminate.' );
  });
