@@ -5,7 +5,7 @@ var express = require('express');
 var app = express();
 
 // set up handlebars view engines
-var handlebars = require('express3-handlebars').create({ defaultLayout:'main' });
+var handlebars = require('express-handlebars').create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine); 
 app.set('view engine', 'handlebars'); 
 
@@ -15,7 +15,7 @@ app.set('port', process.env.PORT || 3000);
 //set static directory  
 app.use(express.static(__dirname + '/public'));
 
-//Add middlewar to show test when query string has ?test=1 & environment (env) us set to 'production'
+//Add middleware to show test when query string has ?test=1 & environment (env) us set to 'production'
 app.use((req,res,next)=>{
   res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
   next();
@@ -47,7 +47,7 @@ app.get('/about', (req,res)=>{
  
 
 //start server
-app.listen(app.get('port'), function(){ 
+app.listen(2999, function(){
   console.log( 'Express started on http://localhost:' +
   app.get('port') + '; press Ctrl-C to terminate.' );
-});
+ });
