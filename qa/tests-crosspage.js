@@ -9,7 +9,6 @@ suite('Cross-Page Tests', function(){
       browser.visit(referrer, function(){
         browser.link('.requestGroupRate', function(){
           assert(browser.referrer === referrer);
-          done();
         });
       });
       done();
@@ -19,7 +18,6 @@ suite('Cross-Page Tests', function(){
     browser.visit(referrer, function(){
       browser.link('.requestGroupRate', function(){
         console.log(referrer);
-        done();
       });
     });
     done();
@@ -27,8 +25,7 @@ suite('Cross-Page Tests', function(){
 
   test('visiting the "request group rate" page directly should result ' + 'in an empty referrer field', function(done){
     browser.visit('http://localhost:3000/tours/request-group-rate', function(){
-      assert(browser.referrer == null)
-      done();
+      assert(browser.referrer == null);
     });
     done();
   });

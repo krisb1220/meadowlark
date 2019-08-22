@@ -4,7 +4,7 @@
   "description": "THIS IS A TEST PROJECT FOR NODE AS WELL AS MY FIRST TIME USING GIT.",
   "main": "meadowlark.js",
   "scripts": {
-    "test": "test"
+    "test": "public/qa/tests-global.js"
   },
   "author": "Energy Marketing Company",
   "license": "ISC",
@@ -15,7 +15,9 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "linkchecker": "^1.1.0",
     "mocha": "^6.2.0",
+    "nodemon": "^1.19.1",
     "zombie": "^6.1.4"
   },
   "directories": {
