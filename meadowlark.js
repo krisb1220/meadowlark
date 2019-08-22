@@ -31,7 +31,22 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/about', (req,res)=>{
-  res.render('about', {  fortune:fortune.getFortune()});
+  res.render('about', {  
+    fortune:fortune.getFortune(),
+    pageTestScript: 'vendor/qa/tests-about.js'
+  });
+});
+
+app.get("/contact", (req,res)=>{
+  res.render("contact");
+});
+
+app.get('/tours/hood-river', function(req, res){
+  res.render('tours/hood-river');
+});
+
+app.get('/tours/request-group-rate', function(req, res){
+  res.render('tours/request-group-rate');
 });
 
  //// 404 catch-all handler (middleware)
