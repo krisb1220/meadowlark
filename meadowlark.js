@@ -12,7 +12,7 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
 //set port 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 80);
 
 //set static directory  
 app.use(express.static(__dirname + '/public'));
@@ -25,7 +25,37 @@ app.use(function (req, res, next) {
 
 
 //SET ROUTES
-////set pages
+
+//debugging pages
+
+//show request headers
+app.get("/headers", function(req, res) {
+  res.type('text/plain');
+  let s = '';
+  for(var name in req.headers) {
+    s += name + ' : ' + req.headers[name] + '\n';
+  }
+  res.send(s)
+});
+
+
+// DEBUGGING PAGE
+app.get('/debug', function (req, res) {
+  res.type("text/plain")
+  let debug = req.path;
+  res.send(debug);
+  console.log(debug);
+});
+
+//DEBUGGING JSON PAGE
+app.get('/debug-json', function (req, res) {
+  res.type("application/json")
+  let debug = res.locals;
+  res.json(debug);
+  console.log(debug);
+});
+
+////Client pages
 app.get('/', function (req, res) {
   res.render('home');
 });
