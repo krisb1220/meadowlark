@@ -26,7 +26,10 @@ app.use(function (req, res, next) {
 
 //SET ROUTES
 
-//debugging pages
+ 
+/****************************
+*            DEBUGGING PAGES            *
+****************************/
 
 //show request headers
 app.get("/headers", function(req, res) {
@@ -47,10 +50,24 @@ app.get('/debug', function (req, res) {
   console.log(debug);
 });
 
-//RENDER A SPECIFIC VIEW
+//RENDER A SPECIFIC VIEW WITH ?v=VIEW
 app.get("/render", function(req,res){
-  let queries = {view: req.query.v + ''}, contextObject = require('./lib/context-objects/context-' + req.query.v + '.js').context;
-  res.render(queries.view,  contextObject);
+  let queries = {
+    view: req.query.v, 
+    contextFileName: req.query.c 
+  };
+
+
+  if(queries.contextFileName != undefined ) {
+    contextObject = require('./lib/context-objects/context-' + queries.contextFileName + '.js').context
+    res.render(queries.view,  contextObject);
+  } 
+  
+  else {
+    res.render(queries.view);
+  }
+
+
 });
 
 //DEBUGGING JSON PAGE
@@ -61,7 +78,10 @@ app.get('/debug-json', function (req, res) {
   console.log(debug);
 });
 
-////Client pages
+/****************************
+*            APPLICATION PAGES           *
+****************************/
+
 app.get('/', function (req, res) {
   res.render('home');
 });
@@ -85,6 +105,10 @@ app.get('/tours/request-group-rate', function (req, res) {
   res.render('tours/request-group-rate');
 });
 
+/****************************
+*        ERROR HANDLER PAGES         *
+****************************/
+
 //// 404 catch-all handler (middleware)
 app.use(function (req, res, next) {
   res.status(404);
@@ -98,8 +122,10 @@ app.use(function (err, req, res, next) {
   res.render('500');
 });
 
+/****************************
+*        START SERVER ON P:80          *
+****************************/
 
-//start server
 app.listen(app.get('port'), function () {
   console.log('Express started on http://localhost:' +
     app.get('port') + '; press Ctrl-C to terminate.');
