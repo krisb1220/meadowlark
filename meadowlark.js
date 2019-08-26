@@ -50,32 +50,32 @@ app.get('/debug', function (req, res) {
   console.log(debug);
 });
 
-//RENDER A SPECIFIC VIEW WITH ?v=VIEW
-app.get("/render", function(req,res){
-  let queries = {
-    view: req.query.v, 
-    contextFileName: req.query.c 
-  };
-
-
-  if(queries.contextFileName != undefined ) {
-    contextObject = require('./lib/context-objects/context-' + queries.contextFileName + '.js').context
-    res.render(queries.view,  contextObject);
-  } 
-  
-  else {
-    res.render(queries.view);
-  }
-
-
-});
-
 //DEBUGGING JSON PAGE
 app.get('/debug-json', function (req, res) {
   res.type("application/json")
   let debug = res.locals;
   res.json(debug);
   console.log(debug);
+});
+
+
+//RENDER A SPECIFIC VIEW WITH ?v=VIEW -- CONTEXT SUPPORT WITH ?v=viewName&?c=contextFileName
+app.get("/render", function(req,res){
+  
+  let queries = {
+    view: req.query.v, 
+    contextFileName: req.query.c 
+  };
+
+  //SET HANDLEBARS CONTEXT OBJECT TO ?C=FILENAME  --- 500 ERROR IF FILENAME NOT FOUND
+  if(queries.contextFileName != undefined ) {
+    contextObject = require('./lib/handlebars-context/context-' + queries.contextFileName + '.js').context
+    res.render(queries.view,  contextObject);
+  } else {
+    res.render(queries.view);
+  }
+
+
 });
 
 /****************************
