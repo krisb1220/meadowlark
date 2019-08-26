@@ -48,12 +48,10 @@ app.get('/debug', function (req, res) {
 });
 
 //RENDER A SPECIFIC VIEW
-app.get("/render-view", function(req,res){
-  let queries = {
-    view: req.query.view 
-  }
-  res.render(queries.view);
-})
+app.get("/render", function(req,res){
+  let queries = {view: req.query.v + ''}, contextObject = require('./lib/context-objects/context-' + req.query.v + '.js').context;
+  res.render(queries.view,  contextObject);
+});
 
 //DEBUGGING JSON PAGE
 app.get('/debug-json', function (req, res) {
