@@ -17,7 +17,7 @@ module.exports = function(grunt){
     jshint: {
     app: ['meadowlark.js', 'public/js/**/*.js',
     'lib/**/*.js'],
-    qatreo: ['Gruntfile.js', 'public/qa/**/*.js', 'qa/**/*.js'],
+    qa: ['Gruntfile.js', 'public/qa/**/*.js', 'qa/**/*.js'],
     }
     });
     // register tasks

@@ -47,6 +47,14 @@ app.get('/debug', function (req, res) {
   console.log(debug);
 });
 
+//RENDER A SPECIFIC VIEW
+app.get("/render-view", function(req,res){
+  let queries = {
+    view: req.query.view 
+  }
+  res.render(queries.view);
+})
+
 //DEBUGGING JSON PAGE
 app.get('/debug-json', function (req, res) {
   res.type("application/json")
