@@ -1,7 +1,11 @@
-//require modules
+/****************************
+*            REQUIRE MODULES            *
+****************************/
 var fortune = require('./lib/fortune.js');
 var express = require('express');
 var app = express();
+var tools = require("./lib/tools/tools.js");
+var contextObjects = require("./lib/handlebars-context/context-master.js");
 
 //Require handlebars
 //Set defaultLayout to main.handlebars (file extension omitted in HB)
@@ -14,6 +18,10 @@ app.set('view engine', 'handlebars');
 //set port 
 app.set('port', process.env.PORT || 80);
 
+/****************************
+*                 MIDDLEWARE                 *
+****************************/
+
 //set static directory  
 app.use(express.static(__dirname + '/public'));
 
@@ -23,13 +31,15 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use(function(req, res, next){
+  if(!res.locals.partials) { res.locals.partials = {} }
+  res.locals.partials.weatherContext  = contextObjects.weather.getWeatherData();
+  next();
+});
 
-//SET ROUTES
-
- 
-/****************************
-*            DEBUGGING PAGES            *
-****************************/
+/***********************************
+*            DEBUGGING PAGES/ROUTES            *
+***********************************/
 
 //show request headers
 app.get("/headers", function(req, res) {
@@ -59,28 +69,14 @@ app.get('/debug-json', function (req, res) {
 });
 
 
-//RENDER A SPECIFIC VIEW WITH ?v=VIEW -- CONTEXT SUPPORT WITH ?v=viewName&?c=contextFileName
+//RENDER A SPECIFIC VIEW WITH ?v=VIEW -- CONTEXT SUPPORT WITH ?v=viewName&c=contextFileName
 app.get("/render", function(req,res){
-  
-  let queries = {
-    view: req.query.v, 
-    contextFileName: req.query.c 
-  };
-
-  //SET HANDLEBARS CONTEXT OBJECT TO ?C=FILENAME  --- 500 ERROR IF FILENAME NOT FOUND
-  if(queries.contextFileName != undefined ) {
-    contextObject = require('./lib/handlebars-context/context-' + queries.contextFileName + '.js').context
-    res.render(queries.view,  contextObject);
-  } else {
-    res.render(queries.view);
-  }
-
-
+  tools.renderViewFromQueryString(req, res);
 });
 
-/****************************
-*            APPLICATION PAGES           *
-****************************/
+/***********************************
+*            APPLICATION PAGES/ROUTES           *
+***********************************/
 
 app.get('/', function (req, res) {
   res.render('home');
