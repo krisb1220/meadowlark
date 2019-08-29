@@ -1,15 +1,27 @@
+/*jshint esversion: 6 */
+
 /****************************
 *            REQUIRE MODULES            *
 ****************************/
-var fortune = require('./lib/fortune.js');
-var express = require('express');
-var app = express();
-var tools = require("./lib/tools/tools.js");
-var contextObjects = require("./lib/handlebars-context/context-master.js");
+const fortune = require('./lib/tools/fortune.js');
+const express = require('express');
+const app = express();
+const tools = require("./lib/tools/tools.js");
+const contextObjects = require("./lib/handlebars-context/context-master.js");
 
 //Require handlebars
-//Set defaultLayout to main.handlebars (file extension omitted in HB)
-var handlebars = require('express-handlebars').create({ defaultLayout: 'main' });
+const hbConfig = {
+  defaultLayout: 'main',
+  helpers: {
+    section: function (name, options) {
+      if (!this._sections) { this._sections = {}; }
+      this._sections.name = options.fn(this);
+      return null;
+    }
+  }
+};
+
+const handlebars = require('express-handlebars').create(hbConfig);
 
 // set up handlebars view engines
 app.engine('handlebars', handlebars.engine);
@@ -31,9 +43,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(function(req, res, next){
-  if(!res.locals.partials) { res.locals.partials = {} }
-  res.locals.partials.weatherContext  = contextObjects.weather.getWeatherData();
+app.use(function (req, res, next) {
+  if (!res.locals.partials) { res.locals.partials = {}; }
+  res.locals.partials.weatherContext = contextObjects.weather.getWeatherData();
   next();
 });
 
@@ -42,19 +54,19 @@ app.use(function(req, res, next){
 ***********************************/
 
 //show request headers
-app.get("/headers", function(req, res) {
+app.get("/headers", function (req, res) {
   res.type('text/plain');
   let s = '';
-  for(var name in req.headers) {
+  for (var name in req.headers) {
     s += name + ' : ' + req.headers[name] + '\n';
   }
-  res.send(s)
+  res.send(s);
 });
 
 
 // DEBUGGING PAGE
 app.get('/debug', function (req, res) {
-  res.type("text/plain")
+  res.type("text/plain");
   let debug = req.path;
   res.send(debug);
   console.log(debug);
@@ -62,7 +74,7 @@ app.get('/debug', function (req, res) {
 
 //DEBUGGING JSON PAGE
 app.get('/debug-json', function (req, res) {
-  res.type("application/json")
+  res.type("application/json");
   let debug = res.locals;
   res.json(debug);
   console.log(debug);
@@ -70,7 +82,7 @@ app.get('/debug-json', function (req, res) {
 
 
 //RENDER A SPECIFIC VIEW WITH ?v=VIEW -- CONTEXT SUPPORT WITH ?v=viewName&c=contextFileName
-app.get("/render", function(req,res){
+app.get("/render", function (req, res) {
   tools.renderViewFromQueryString(req, res);
 });
 
